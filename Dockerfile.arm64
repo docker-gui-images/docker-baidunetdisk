@@ -1,0 +1,32 @@
+FROM dockerguiimages/docker-novnc:latest-arm64-2204
+
+RUN mkdir /tmp/docker-root
+COPY ./docker-root /tmp/docker-root/
+RUN chmod -R 755 /tmp/docker-root/
+RUN cp -r /tmp/docker-root/* /
+RUN rm -rf /tmp/docker-root
+
+RUN apt-get update && \
+	apt-get install -y wget language-pack-zh-hans tzdata fontconfig fonts-wqy-zenhei && \
+	apt-get install -y --no-install-recommends fcitx fcitx-ui-classic fcitx-pinyin && \
+	apt-get install -y dbus-user-session xfe curl
+
+
+RUN wget -O /tmp/baidunetdisk.deb https://pkg-ant.baidu.com/issue/netdisk/LinuxGuanjia/4.17.7/baidunetdisk_4.17.7_arm64.deb && \
+	apt-get install -f -y /tmp/baidunetdisk.deb && \
+	rm -f /tmp/baidunetdisk.deb
+
+RUN chsh -s /bin/bash user && \
+	mkdir -p /home/user/.fonts/ && \
+	chown -R user:user /home/user && \
+	su user -c 'fc-cache -v'
+
+RUN apt-get autoremove -y && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists
+
+ENV LANG=zh_CN.UTF-8 \
+    LC_ALL=zh_CN.UTF-8 \
+    TZ=Asia/Shanghai
+
+VOLUME ["/home/user/.config/baidunetdisk"]

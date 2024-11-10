@@ -1,0 +1,18 @@
+#!/command/with-contenv /bin/bash
+
+set -x
+set -e
+
+rm -rf /run/dbus/pid
+mkdir -p /var/run/dbus
+chmod -R 777 /var/run/dbus
+dbus-daemon --config-file=/usr/share/dbus-1/system.conf --print-address > /var/run/dbus/DBUS_SESSION_BUS_ADDRESS
+export DBUS_SESSION_BUS_ADDRESS=$(cat /var/run/dbus/DBUS_SESSION_BUS_ADDRESS)
+
+mkdir -p /home/user/.config/baidunetdisk/
+chown -R user /home/user/.config/
+chmod -R 777 /home/user/.config/baidunetdisk/
+
+# 百度网盘提权
+echo '' >> /etc/sudoers
+echo 'user ALL=(ALL:ALL) NOPASSWD:SETENV: /opt/baidunetdisk/*' >> /etc/sudoers
