@@ -10,6 +10,8 @@ docker-baidunetdisk 可以使你在 Docker 容器中运行 百度网盘。
 
 示例均为amd64(x86_64)，如需arm64请自行替换镜像tag。
 
+**示例下载目录(容器内)为/baidunetdisk_data**
+
 ## 快速开始(临时使用)
 
 如果你在服务器上使用 `docker` 或者和 docker 兼容的服务，只需执行：
@@ -25,13 +27,13 @@ docker run -it --rm -p 9000:9000 -v `pwd`/baidunetdisk_data:/baidunetdisk_data -
 ### 使用 HTTP Basic Authentication 进行鉴权 (推荐)
 
 ```bash
-docker run --name=ncf -d -p 9000:9000 -v `pwd`/baidunetdisk_data:/baidunetdisk_data -v `pwd`/baidunetdisk_config:/home/user/.config/baidunetdisk -e VNC_GEOMETRY="1280x720" -e VNC_PASSWD="" -e HTTP_AUTH_USER="auth_username" -e HTTP_AUTH_PASSWD="auth_password" dockerguiimages/docker-baidunetdisk:latest-amd64
+docker run --name=baidunetdisk -d -p 9000:9000 -v `pwd`/baidunetdisk_data:/baidunetdisk_data -v `pwd`/baidunetdisk_config:/home/user/.config/baidunetdisk -e VNC_GEOMETRY="1280x720" -e VNC_PASSWD="" -e HTTP_AUTH_USER="auth_username" -e HTTP_AUTH_PASSWD="auth_password" dockerguiimages/docker-baidunetdisk:latest-amd64
 ```
 
 ### 使用 VNC 进行鉴权 (不推荐)
 
 ```bash
-docker run --name=ncf -d -p 9000:9000 -v `pwd`/baidunetdisk_data:/baidunetdisk_data -v `pwd`/baidunetdisk_config:/home/user/.config/baidunetdisk -e VNC_GEOMETRY="1280x720" -e VNC_PASSWD="12345678" dockerguiimages/docker-baidunetdisk:latest-amd64
+docker run --name=baidunetdisk -d -p 9000:9000 -v `pwd`/baidunetdisk_data:/baidunetdisk_data -v `pwd`/baidunetdisk_config:/home/user/.config/baidunetdisk -e VNC_GEOMETRY="1280x720" -e VNC_PASSWD="12345678" dockerguiimages/docker-baidunetdisk:latest-amd64
 ```
 
 ## 环境变量
