@@ -12,7 +12,7 @@ RUN apt-get update && \
 	apt-get install -y dbus-user-session xfe curl
 
 
-RUN wget -O /tmp/baidunetdisk.deb https://pkg-ant.baidu.com/issue/netdisk/LinuxGuanjia/4.17.7/baidunetdisk_4.17.7_amd64.deb && \
+RUN wget -O /tmp/baidunetdisk.deb https://pkg-ant.baidu.com/issue/netdisk/LinuxGuanjia/4.17.8/baidunetdisk_4.17.8_amd64.deb && \
 	apt-get install -f -y /tmp/baidunetdisk.deb && \
 	rm -f /tmp/baidunetdisk.deb
 
